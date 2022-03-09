@@ -1,1 +1,61 @@
-<p>sim works!</p>
+<div class="container flex flex-col justify-center items-center text-center">
+  <h1>Heading</h1>
+
+  <p>Paragraph</p>
+
+  <div>div1</div>
+
+  <div
+    class="flex flex-col text-left gap-4 w-64 p-6 rounded-md shadow-md bg-white"
+  >
+    <div class="flex flex-row justify-between items-center text-center">
+      <div class="flex items-center">Starting Wealth</div>
+      <nz-input-number
+        [(ngModel)]="startWealth"
+        [nzMin]="1"
+        [nzMax]="100000"
+        [nzStep]="1"
+        [nzFormatter]="formatterDollar"
+        [nzParser]="parserDollar"
+        (nzBlur)="ensureBetLowerThanWealth()"
+      >
+      </nz-input-number>
+    </div>
+    <div class="flex flex-row justify-between">
+      <div class="flex items-center">Bet Size</div>
+      <nz-input-number
+        [(ngModel)]="betSize"
+        [nzMin]="0.1"
+        [nzMax]="startWealth"
+        [nzStep]="0.1"
+        [nzFormatter]="formatterDollar"
+        [nzParser]="parserDollar"
+      >
+      </nz-input-number>
+    </div>
+    <div class="flex flex-row justify-between">
+      <div class="flex items-center">RTP</div>
+      <nz-input-number
+        [(ngModel)]="rtp"
+        [nzMin]="0"
+        [nzMax]="100"
+        [nzStep]="0.1"
+        [nzFormatter]="formatterPercent"
+        [nzParser]="parserPercent"
+      ></nz-input-number>
+    </div>
+
+    <div class="flex flex-row justify-between">
+      <div class="flex items-center">Volatility</div>
+      <nz-select [(ngModel)]="vol" class="w-24">
+        <nz-option nzValue="LOW" nzLabel="Low"></nz-option>
+        <nz-option nzValue="MEDIUM" nzLabel="Medium"></nz-option>
+        <nz-option nzValue="HIGH" nzLabel="High"></nz-option>
+      </nz-select>
+    </div>
+
+    <button nz-button nzType="primary" (click)="runSim()" [nzLoading]="loading">
+      Click me!
+    </button>
+  </div>
+</div>
