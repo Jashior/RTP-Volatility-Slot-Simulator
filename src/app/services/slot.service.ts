@@ -39,15 +39,15 @@ export class SlotService {
   constructor() {}
 
   test(w: number, bet: number, rtp: number, vol: volatility) {
-    console.log(`Volatility ${vol}, Wealth ${w}, Bet ${bet}, RTP ${rtp}`);
     let currW = w;
     let currentBet = bet;
     let cumulativeProbabilities = this.prob[vol][0];
     let payoutMultipliers = this.prob[vol][1];
     let betHistory = [];
     let nRounds = 0;
+    let MAX_ROUNDS = 50000;
 
-    while (currW > 0 && nRounds <= 25000) {
+    while (currW > 0 && nRounds <= MAX_ROUNDS) {
       currentBet = bet;
       nRounds++;
 
@@ -66,17 +66,11 @@ export class SlotService {
         upper == undefined ? 0 : cumulativeProbabilities.indexOf(upper);
       // Uses position to find payout multiplier in payout multiplier array
       let payout = currentBet * payoutMultipliers[position] * (rtp / 100);
-      console.log(
-        `payout: ${payout} ( bet ${currentBet} * multiplier ${
-          payoutMultipliers[position] * (rtp / 100)
-        })`
-      );
 
       currW = Number((currW + Number(payout)).toFixed(2));
       betHistory.push(currW);
     }
 
-    console.log(betHistory);
     return betHistory;
   }
 }

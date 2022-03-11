@@ -1,61 +1,88 @@
 <div class="container flex flex-col justify-center items-center text-center">
-  <h1>Heading</h1>
-
-  <p>Paragraph</p>
-
-  <div>div1</div>
+  <h1 class="text-lg">Slot Machine Simulator</h1>
 
   <div
-    class="flex flex-col text-left gap-4 w-64 p-6 rounded-md shadow-md bg-white"
+    class="flex flex-col justify-center items-center gap-6 text-left md:flex-row"
   >
-    <div class="flex flex-row justify-between items-center text-center">
-      <div class="flex items-center">Starting Wealth</div>
-      <nz-input-number
-        [(ngModel)]="startWealth"
-        [nzMin]="1"
-        [nzMax]="100000"
-        [nzStep]="1"
-        [nzFormatter]="formatterDollar"
-        [nzParser]="parserDollar"
-        (nzBlur)="ensureBetLowerThanWealth()"
-      >
-      </nz-input-number>
-    </div>
-    <div class="flex flex-row justify-between">
-      <div class="flex items-center">Bet Size</div>
-      <nz-input-number
-        [(ngModel)]="betSize"
-        [nzMin]="0.1"
-        [nzMax]="startWealth"
-        [nzStep]="0.1"
-        [nzFormatter]="formatterDollar"
-        [nzParser]="parserDollar"
-      >
-      </nz-input-number>
-    </div>
-    <div class="flex flex-row justify-between">
-      <div class="flex items-center">RTP</div>
-      <nz-input-number
-        [(ngModel)]="rtp"
-        [nzMin]="0"
-        [nzMax]="100"
-        [nzStep]="0.1"
-        [nzFormatter]="formatterPercent"
-        [nzParser]="parserPercent"
-      ></nz-input-number>
+    <div class="w-96 mx-4 md:mx-0">
+      <p>
+        <b>RTP</b>, meaning 'Return To Player', refers to how much return you
+        receive mathematically on average from a bet. For example, a bet of $1
+        on a slot machine with a 97% RTP, on average, will return $0.97.
+        Generally, online slots may be around 95% RTP, whereas offline physical
+        slot machines will typically have much lower RTP rates
+      </p>
+      <hr />
+      <p>
+        <b>Volatility</b> refers to the variance a slot machine will have. Low
+        volatility slot machines will pay out often, but will pay out lower
+        amounts. High volatility slot machines will pay out rarely but when they
+        do payout, they give the player the opportunity to win big amounts,
+        often dealt with through special bonus screens. Within this simulation,
+        low volatility slots can pay up to 50x, medium 5000x, and high 200,000x.
+      </p>
+      <hr />
     </div>
 
-    <div class="flex flex-row justify-between">
-      <div class="flex items-center">Volatility</div>
-      <nz-select [(ngModel)]="vol" class="w-24">
-        <nz-option nzValue="LOW" nzLabel="Low"></nz-option>
-        <nz-option nzValue="MEDIUM" nzLabel="Medium"></nz-option>
-        <nz-option nzValue="HIGH" nzLabel="High"></nz-option>
-      </nz-select>
+    <div
+      class="flex flex-col text-left gap-4 w-64 p-6 rounded-md shadow-md bg-white"
+    >
+      <div class="flex flex-row justify-between items-center text-center">
+        <div class="flex items-center">Starting Wealth</div>
+        <nz-input-number
+          [(ngModel)]="startWealth"
+          [nzMin]="1"
+          [nzMax]="100000"
+          [nzStep]="1"
+          [nzFormatter]="formatterDollar"
+          [nzParser]="parserDollar"
+          (nzBlur)="ensureBetLowerThanWealth()"
+        >
+        </nz-input-number>
+      </div>
+      <div class="flex flex-row justify-between">
+        <div class="flex items-center">Bet Size</div>
+        <nz-input-number
+          [(ngModel)]="betSize"
+          [nzMin]="0.1"
+          [nzMax]="startWealth"
+          [nzStep]="0.1"
+          [nzFormatter]="formatterDollar"
+          [nzParser]="parserDollar"
+        >
+        </nz-input-number>
+      </div>
+      <div class="flex flex-row justify-between">
+        <div class="flex items-center">RTP</div>
+        <nz-input-number
+          [(ngModel)]="rtp"
+          [nzMin]="0"
+          [nzMax]="100"
+          [nzStep]="0.1"
+          [nzFormatter]="formatterPercent"
+          [nzParser]="parserPercent"
+        ></nz-input-number>
+      </div>
+      <div class="flex flex-row justify-between">
+        <div class="flex items-center">Volatility</div>
+        <nz-select [(ngModel)]="vol" class="w-24">
+          <nz-option nzValue="LOW" nzLabel="Low"></nz-option>
+          <nz-option nzValue="MEDIUM" nzLabel="Medium"></nz-option>
+          <nz-option nzValue="HIGH" nzLabel="High"></nz-option>
+        </nz-select>
+      </div>
+      <button
+        nz-button
+        nzType="primary"
+        (click)="runSim()"
+        [nzLoading]="loading"
+      >
+        Simulate!
+      </button>
     </div>
-
-    <button nz-button nzType="primary" (click)="runSim()" [nzLoading]="loading">
-      Click me!
-    </button>
   </div>
+</div>
+
+<div *ngIf="showChart" class="chart">
+  <app-chart [result]="result"> </app-chart>
 </div>

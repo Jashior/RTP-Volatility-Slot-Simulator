@@ -13,7 +13,8 @@ export class SimComponent implements OnInit {
   rtp: number = 97.0; // Return to player %
   vol: volatility = volatility.MEDIUM;
   loading: boolean = false;
-
+  showChart: boolean = false;
+  result: number[] = [];
   formatterPercent = (value: number): string => `${value} %`;
   parserPercent = (value: string): string => value.replace(' %', '');
   formatterDollar = (value: number): string => `$ ${value}`;
@@ -23,8 +24,17 @@ export class SimComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  runSim() {
-    this.slotService.test(this.startWealth, this.betSize, this.rtp, this.vol);
+  async runSim() {
+    this.loading = true;
+    this.showChart = false;
+    this.result = await this.slotService.test(
+      this.startWealth,
+      this.betSize,
+      this.rtp,
+      this.vol
+    );
+    this.loading = false;
+    this.showChart = true;
   }
 
   ensureBetLowerThanWealth() {

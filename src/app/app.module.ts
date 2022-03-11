@@ -12,11 +12,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NzModule } from './nz/nz.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxEchartsModule } from 'ngx-echarts';
+import { ChartComponent } from './chart/chart.component';
 
 registerLocaleData(uk);
 
 @NgModule({
-  declarations: [AppComponent, SimComponent],
+  declarations: [AppComponent, SimComponent, ChartComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -25,6 +27,14 @@ registerLocaleData(uk);
     HttpClientModule,
     BrowserAnimationsModule,
     NzModule,
+    NgxEchartsModule.forRoot({
+      /**
+       * This will import all modules from echarts.
+       * If you only need custom modules,
+       * please refer to [Custom Build] section.
+       */
+      echarts: () => import('echarts'), // or import('./path-to-my-custom-echarts')
+    }),
   ],
   providers: [{ provide: NZ_I18N, useValue: uk_UA }],
   bootstrap: [AppComponent],
