@@ -1,6 +1,13 @@
-# Slots
+# RTP/Volatility Slot Simulator 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.8.
+Simulating the impact of Return-To-Player (RTP) percentages and levels of volatility over many iterations within a sample slot machine. 
+
+# Demo
+
+https://slotsim.herokuapp.com
+
+
+![RTP/Volatility Slot Simulator Demo][demo]
 
 ## Development server
 
@@ -25,3 +32,5 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+[demo]: src/assets/demo.png
