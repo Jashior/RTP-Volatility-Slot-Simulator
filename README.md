@@ -4,7 +4,7 @@ Simulating the impact of Return-To-Player (RTP) percentages and levels of volati
 
 # Demo
 
-https://slotsim.herokuapp.com
+https://slotsim.netlify.app/
 
 
 ![RTP/Volatility Slot Simulator Demo][demo]
